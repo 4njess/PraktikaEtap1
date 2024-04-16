@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практика</title>
+</head>
+<body>
+    <div>
+        <h3>Получить запрос:</h3>
+    </div>
+    <div>
+        <input type="button" value="Запрос" onclick="zapros()">
+        <script>
+            function zapros() {
+            let url = 'http://demo.macroscop.com/configex?responsetype=json';
+            let token = 'ZGVtb2xvZ2luOjc1NTgwNjU2YTM5NDI5MjQ2MGViYjRiMDM2ZWJlYWYx'
+            let que = new XMLHttpRequest();
+            que.open('GET', url, true)
+            que.setRequestHeader('Authorization', 'Basic '+token)
+            que.send();
+
+            que.onload = function(){
+                if (que.status != 200){
+                    alert(`Ошибка ${que.status}: ${que.statusText}`)
+                }
+                else{
+                    alert("Успешно")
+                    quetext = que.responseText
+                    console.log(quetext)
+                    document.getElementById("quetext").innerHTML = "Данные запроса:" + quetext;
+                }
+            };
+            que.onerror = function(){
+                alert("Запрос не удался")
+            };
+
+            }
+        </script>
+    <p id="quetext">
+    </div>
+</body>
+</html>
